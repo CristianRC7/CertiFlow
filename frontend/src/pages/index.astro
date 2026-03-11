@@ -1,0 +1,17 @@
+---
+import "../styles/global.css";
+import LoginPage from "../components/LoginPage.jsx";
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/CertiFlow.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>CertiFlow</title>
+  </head>
+  <body class="bg-white min-h-screen p-4 flex items-center justify-center">
+    <LoginPage client:only="react" />
+  </body>
+</html>

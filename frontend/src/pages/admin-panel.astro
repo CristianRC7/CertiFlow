@@ -1,0 +1,32 @@
+---
+import "../styles/global.css";
+import AdminDashboard from "../components/AdminDashboard.jsx";
+
+const sessionCookie = Astro.cookies.get("adminSession");
+
+if (!sessionCookie?.value) {
+  return Astro.redirect("/");
+}
+
+try {
+  const sessionData = JSON.parse(sessionCookie.value);
+  if (!sessionData.isAdmin || !sessionData.adminVerified) {
+    return Astro.redirect("/");
+  }
+} catch {
+  return Astro.redirect("/");
+}
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/CertiFlow.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Panel Admin - CertiFlow</title>
+  </head>
+  <body>
+    <AdminDashboard client:only="react" />
+  </body>
+</html>

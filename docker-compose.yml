@@ -1,0 +1,68 @@
+services:
+
+  # ── Servidor PHP + Apache ────────────────────────────────────────────────────
+  php:
+    build: .
+    container_name: certiflow_backend
+    ports:
+      - "80:80"         # http://localhost  →  Apache dentro del contenedor
+    volumes:
+      # ✅ SINCRONIZACIÓN EN VIVO:
+      # Monta toda tu carpeta backend local dentro del contenedor.
+      # Cualquier archivo que edites o subas localmente aparece al instante.
+      - ./backend:/var/www/html/certiflow/backend
+    environment:
+      # Sobreescribimos la variable de host para que apunte al servicio MySQL
+      # (en Docker los servicios se comunican por nombre, no por "localhost")
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - certiflow_net
+
+  # ── Base de datos MySQL ──────────────────────────────────────────────────────
+  db:
+    image: mysql:8.0
+    container_name: certiflow_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ""           # Sin contraseña (igual que tu XAMPP)
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: certiflow
+    ports:
+      - "3306:3306"     # Permite conectarte con DBeaver/TablePlus desde tu PC
+    volumes:
+      # Persiste los datos de MySQL aunque el contenedor se reinicie
+      - db_data:/var/lib/mysql
+      # Si tienes un dump SQL para importar al inicio, ponlo en ./database/init.sql
+      - ./database:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - certiflow_net
+
+  # ── phpMyAdmin (opcional, igual que en XAMPP) ────────────────────────────────
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: certiflow_phpmyadmin
+    ports:
+      - "8080:80"       # http://localhost:8080  →  phpMyAdmin
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: ""
+    depends_on:
+      - db
+    networks:
+      - certiflow_net
+
+volumes:
+  db_data:
+
+networks:
+  certiflow_net:
+    driver: bridge
