@@ -61,7 +61,7 @@ CREATE TABLE `evento_campos` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_campo_evento` (`evento_id`,`campo`),
   CONSTRAINT `evento_campos_ibfk_1` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `evento_campos` (
 
 LOCK TABLES `evento_campos` WRITE;
 /*!40000 ALTER TABLE `evento_campos` DISABLE KEYS */;
-INSERT INTO `evento_campos` VALUES (55,1,'nro_certificado',90.104,98.096,15,'B'),(56,1,'nombre_apellido',50.911,51.091,20,'B'),(57,2,'nombre_apellido',49.870,44.369,30,'B'),(58,2,'nro_certificado',91.536,97.981,20,'B'),(59,3,'nombre_apellido',50.781,45.136,90,'B'),(60,3,'nro_certificado',88.932,97.355,75,'B'),(65,4,'nombre_apellido',51.042,51.359,90,'B'),(66,4,'nro_certificado',90.495,96.766,75,'B');
+INSERT INTO `evento_campos` VALUES (69,6,'nombre_apellido',51.302,55.137,30,'B'),(70,6,'nro_certificado',80.729,87.592,20,'B');
 /*!40000 ALTER TABLE `evento_campos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +88,7 @@ CREATE TABLE `eventos` (
   `imagen_width` int DEFAULT NULL,
   `imagen_height` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `eventos` (
 
 LOCK TABLES `eventos` WRITE;
 /*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
-INSERT INTO `eventos` VALUES (1,'JETS 2022','6997ff955554f_1771569045.jpg',613,793),(2,'JETS 2023','6998000a21aeb_1771569162.jpg',842,1191),(3,'JETS 2024','6998042d117be_1771570221.jpg',2550,3300),(4,'JETS 2025','699805708fddf_1771570544.jpg',3296,2552);
+INSERT INTO `eventos` VALUES (6,'Competencia Programacion','69b102df070ef_1773208287.png',920,657);
 /*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +119,7 @@ CREATE TABLE `participaciones` (
   KEY `evento_id` (`evento_id`),
   CONSTRAINT `participaciones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   CONSTRAINT `participaciones_ibfk_2` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +128,7 @@ CREATE TABLE `participaciones` (
 
 LOCK TABLES `participaciones` WRITE;
 /*!40000 ALTER TABLE `participaciones` DISABLE KEYS */;
-INSERT INTO `participaciones` VALUES (7,1,1,'123','pagado'),(8,1,2,'1234','pagado'),(9,1,3,'1235','pagado'),(10,1,4,'1236','pagado');
+INSERT INTO `participaciones` VALUES (11,1,6,'1234','pagado');
 /*!40000 ALTER TABLE `participaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +156,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Cristian David','Ramirez Callejas','636443','25d55ad283aa400af464c76d713c07ad'),(2,'Administrador','CTE','admin','8182bbea6467267b1aaa9e3c336c4c64');
+INSERT INTO `usuarios` VALUES (1,'Cristian David','Ramirez Callejas','cdramirez','25d55ad283aa400af464c76d713c07ad'),(2,'Usuario','Admin','admin','25d55ad283aa400af464c76d713c07ad');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,4 +173,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-11  5:43:57
+-- Dump completed on 2026-03-11  5:54:47

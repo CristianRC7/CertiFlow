@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 22-02-2026 a las 19:38:53
+-- Tiempo de generación: 11-03-2026 a las 05:54:29
 -- Versión del servidor: 8.0.45
 -- Versión de PHP: 8.3.30
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `CertiFlow`
+-- Base de datos: `certiflow`
 --
 
 -- --------------------------------------------------------
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `administradores` (
   `id` int NOT NULL,
   `usuario_id` int NOT NULL,
-  `codigo` varchar(180) COLLATE utf8mb4_general_ci NOT NULL,
+  `codigo` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `activo` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -49,8 +49,8 @@ INSERT INTO `administradores` (`id`, `usuario_id`, `codigo`, `activo`) VALUES
 
 CREATE TABLE `eventos` (
   `id` int NOT NULL,
-  `nombre_evento` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
-  `imagen_certificado` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nombre_evento` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `imagen_certificado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `imagen_width` int DEFAULT NULL,
   `imagen_height` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -60,10 +60,7 @@ CREATE TABLE `eventos` (
 --
 
 INSERT INTO `eventos` (`id`, `nombre_evento`, `imagen_certificado`, `imagen_width`, `imagen_height`) VALUES
-(1, 'JETS 2022', '6997ff955554f_1771569045.jpg', 613, 793),
-(2, 'JETS 2023', '6998000a21aeb_1771569162.jpg', 842, 1191),
-(3, 'JETS 2024', '6998042d117be_1771570221.jpg', 2550, 3300),
-(4, 'JETS 2025', '699805708fddf_1771570544.jpg', 3296, 2552);
+(6, 'Competencia Programacion', '69b102df070ef_1773208287.png', 920, 657);
 
 -- --------------------------------------------------------
 
@@ -74,11 +71,11 @@ INSERT INTO `eventos` (`id`, `nombre_evento`, `imagen_certificado`, `imagen_widt
 CREATE TABLE `evento_campos` (
   `id` int NOT NULL,
   `evento_id` int NOT NULL,
-  `campo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `campo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `x_pct` decimal(6,3) NOT NULL,
   `y_pct` decimal(6,3) NOT NULL,
   `font_size` int DEFAULT '20',
-  `font_style` varchar(5) COLLATE utf8mb4_general_ci DEFAULT 'B'
+  `font_style` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'B'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -86,14 +83,8 @@ CREATE TABLE `evento_campos` (
 --
 
 INSERT INTO `evento_campos` (`id`, `evento_id`, `campo`, `x_pct`, `y_pct`, `font_size`, `font_style`) VALUES
-(55, 1, 'nro_certificado', 90.104, 98.096, 15, 'B'),
-(56, 1, 'nombre_apellido', 50.911, 51.091, 20, 'B'),
-(57, 2, 'nombre_apellido', 49.870, 44.369, 30, 'B'),
-(58, 2, 'nro_certificado', 91.536, 97.981, 20, 'B'),
-(59, 3, 'nombre_apellido', 50.781, 45.136, 90, 'B'),
-(60, 3, 'nro_certificado', 88.932, 97.355, 75, 'B'),
-(65, 4, 'nombre_apellido', 51.042, 51.359, 90, 'B'),
-(66, 4, 'nro_certificado', 90.495, 96.766, 75, 'B');
+(69, 6, 'nombre_apellido', 51.302, 55.137, 30, 'B'),
+(70, 6, 'nro_certificado', 80.729, 87.592, 20, 'B');
 
 -- --------------------------------------------------------
 
@@ -105,8 +96,8 @@ CREATE TABLE `participaciones` (
   `id` int NOT NULL,
   `usuario_id` int NOT NULL,
   `evento_id` int NOT NULL,
-  `nro_certificado` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `estado_pago` enum('pendiente','pagado') COLLATE utf8mb4_general_ci DEFAULT 'pendiente'
+  `nro_certificado` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `estado_pago` enum('pendiente','pagado') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'pendiente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -114,10 +105,7 @@ CREATE TABLE `participaciones` (
 --
 
 INSERT INTO `participaciones` (`id`, `usuario_id`, `evento_id`, `nro_certificado`, `estado_pago`) VALUES
-(7, 1, 1, '123', 'pagado'),
-(8, 1, 2, '1234', 'pagado'),
-(9, 1, 3, '1235', 'pagado'),
-(10, 1, 4, '1236', 'pagado');
+(11, 1, 6, '1234', 'pagado');
 
 -- --------------------------------------------------------
 
@@ -127,10 +115,10 @@ INSERT INTO `participaciones` (`id`, `usuario_id`, `evento_id`, `nro_certificado
 
 CREATE TABLE `usuarios` (
   `id` int NOT NULL,
-  `nombre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `apellido` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `usuario` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `contrasena` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
+  `nombre` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `apellido` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `usuario` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `contrasena` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -138,8 +126,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `usuario`, `contrasena`) VALUES
-(1, 'Cristian David', 'Ramirez Callejas', '636443', '25d55ad283aa400af464c76d713c07ad'),
-(2, 'Administrador', 'CTE', 'admin', '8182bbea6467267b1aaa9e3c336c4c64');
+(1, 'Cristian David', 'Ramirez Callejas', 'cdramirez', '25d55ad283aa400af464c76d713c07ad'),
+(2, 'Usuario', 'Admin', 'admin', '25d55ad283aa400af464c76d713c07ad');
 
 --
 -- Índices para tablas volcadas
@@ -194,19 +182,19 @@ ALTER TABLE `administradores`
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `evento_campos`
 --
 ALTER TABLE `evento_campos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT de la tabla `participaciones`
 --
 ALTER TABLE `participaciones`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
